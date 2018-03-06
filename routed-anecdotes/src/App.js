@@ -63,7 +63,6 @@ class CreateNew extends React.Component {
   }
 
   handleChange = (e) => {
-    console.log(e.target.name, e.target.value)
     this.setState({ [e.target.name]: e.target.value })
   }
 
@@ -75,6 +74,7 @@ class CreateNew extends React.Component {
       info: this.state.info,
       votes: 0
     })
+    this.props.history.push('/')
   }
 
   render() {
@@ -130,6 +130,9 @@ class App extends React.Component {
   addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     this.setState({ anecdotes: this.state.anecdotes.concat(anecdote) })
+    this.setState({ notification: 'a new anecdote ' + anecdote.content + ' created'})
+    const temporary = this
+    setTimeout(function(){temporary.setState({notification: ''})}, 10000)
   }
 
   vote = (id) => {
@@ -156,8 +159,10 @@ class App extends React.Component {
           <div>
             <h1>Software anecdotes</h1>
             <Menu />
+            <p>{this.state.notification}</p>
+            <Route exact path="/" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
             <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
-            <Route exact path="/createnew" render={() => <CreateNew />} />
+            <Route exact path="/createnew" render={({history}) => <CreateNew history={history} addNew={this.addNew}/>} />
             <Route exact path="/about" render={() => <About />} />
             <Route exact path="/anecdotes/:id" render={({ match }) =>
               <Anecdote anecdote={this.anecdoteById(match.params.id)} />}
