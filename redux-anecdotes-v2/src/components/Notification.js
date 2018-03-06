@@ -7,11 +7,19 @@ class Notification extends React.Component {
       padding: 10,
       borderWidth: 1
     }
-    return (
-      <div style={style}>
-        {this.props.store.getState().notifications}
-      </div>
-    )
+    if (this.props.store.getState().notifications === '') {
+      return(
+        <div>
+       </div>
+      )
+    } else {
+      return (
+        <div style={style}>
+          {this.props.store.getState().notifications}
+        </div>
+      )
+    }
+    
   }
 }
 

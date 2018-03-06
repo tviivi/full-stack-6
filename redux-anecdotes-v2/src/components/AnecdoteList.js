@@ -13,9 +13,15 @@ class AnecdoteList extends React.Component {
             </div>
             <div>
               has {anecdote.votes}
-              <button onClick={() => 
-                this.props.store.dispatch({ type: 'VOTE', id: anecdote.id })
-              }>
+              <button onClick={() => {
+
+                const temp = this.props.store
+                return (
+                  temp.dispatch({ type: 'VOTE', id: anecdote.id }),
+                  temp.dispatch({ type: 'CHANGE', cont: 'you voted ' + anecdote.content}),
+                  setTimeout(function(){temp.dispatch({type: 'CHANGE', cont: ''})}, 5000)
+                )
+              }}>
                 vote
               </button>
             </div>
