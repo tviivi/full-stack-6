@@ -9,7 +9,7 @@ class AnecdoteForm extends React.Component {
     temp.dispatch(
       anecdoteCreation(content)
     )
-    temp.dispatch({ type: 'CREATENEW', cont: 'you created ' + content })
+    temp.dispatch({ type: 'CREATENEW', cont: 'you created "' + content + '"'})
     setTimeout(function () { temp.dispatch({ type: 'CREATENEW', cont: '' }) }, 5000)
     e.target.anecdote.value = ''
   }

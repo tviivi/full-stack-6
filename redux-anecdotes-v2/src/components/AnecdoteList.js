@@ -18,7 +18,7 @@ class AnecdoteList extends React.Component {
                 const temp = this.props.store
                 return (
                   temp.dispatch({ type: 'VOTE', id: anecdote.id }),
-                  temp.dispatch({ type: 'CHANGE', cont: 'you voted ' + anecdote.content}),
+                  temp.dispatch({ type: 'CHANGE', cont: 'you voted for "' + anecdote.content + '"'}),
                   setTimeout(function(){temp.dispatch({type: 'CHANGE', cont: ''})}, 5000)
                 )
               }}>
