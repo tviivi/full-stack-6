@@ -130,7 +130,7 @@ class App extends React.Component {
   addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     this.setState({ anecdotes: this.state.anecdotes.concat(anecdote) })
-    this.setState({ notification: 'a new anecdote ' + anecdote.content + ' created'})
+    this.setState({ notification: 'a new anecdote "' + anecdote.content + '" created :)'})
     const temporary = this
     setTimeout(function(){temporary.setState({notification: ''})}, 10000)
   }
@@ -153,13 +153,21 @@ class App extends React.Component {
 
   render() {
 
+    const style = {
+      color: 'blue',
+      backgroundColor: 'powderblue',
+      fontStyle: 'italic',
+      fontSize: 22,
+      width: 350
+    }
+
     return (
       <div>
         <Router>
           <div>
             <h1>Software anecdotes</h1>
             <Menu />
-            <p>{this.state.notification}</p>
+            <div style={style}>{this.state.notification}</div>
             <Route exact path="/" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
             <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
             <Route exact path="/createnew" render={({history}) => <CreateNew history={history} addNew={this.addNew}/>} />
