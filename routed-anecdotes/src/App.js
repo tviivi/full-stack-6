@@ -1,8 +1,16 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+const style = {
+  color: 'red',
+  backgroundColor: 'lightgray',
+  fontStyle: 'normal',
+  fontSize: 18,
+  width: 215
+}
+
 const Menu = () => (
-  <div>
+  <div style={style}>
     <Link to="/anecdotes">anecdotes</Link> &nbsp;
     <Link to="/createnew">create new</Link> &nbsp;
     <Link to="/about">about</Link> &nbsp;
@@ -154,11 +162,11 @@ class App extends React.Component {
   render() {
 
     const style = {
-      color: 'blue',
-      backgroundColor: 'powderblue',
+      color: 'white',
+      backgroundColor: 'gray',
       fontStyle: 'italic',
-      fontSize: 22,
-      width: 350
+      fontSize: 20,
+      width: 260
     }
 
     return (
