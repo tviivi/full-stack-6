@@ -1,11 +1,13 @@
 import React from 'react'
 import { filterChange } from './../reducers/filterReducer'
+import { connect } from 'react-redux'
 
 class Filter extends React.Component {
     handleChange = (event) => {
-        this.props.store.dispatch(filterChange(event.target.value.toLowerCase()))
+        const muuttuja = event.target.value
+        this.props.setFilter(muuttuja)
     }
-    
+
     render() {
         const style = {
             marginBottom: 10
@@ -19,4 +21,14 @@ class Filter extends React.Component {
     }
 }
 
-export default Filter
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setFilter: (nimi) => {
+            dispatch({ type: 'SET_FILTER', filter: nimi })
+        }
+    }
+}
+
+const ConnectedFilter = connect(null, mapDispatchToProps)(Filter)
+
+export default ConnectedFilter
