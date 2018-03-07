@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { Table } from 'react-bootstrap'
+import { Table, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap'
 
 const style = {
   color: 'red',
@@ -35,7 +35,8 @@ const AnecdoteList = ({ anecdotes }) => (
 )
 
 const About = () => (
-  <div>
+  <div className="container">
+    <img src="https://fi.wikipedia.org/wiki/Linus_Torvalds#/media/File:Linus_Torvalds.jpeg" class="img-responsive" alt="Responsive image"></img>
     <h2>About anecdote app</h2>
     <p>According to Wikipedia:</p>
 
@@ -96,19 +97,21 @@ class CreateNew extends React.Component {
       <div>
         <h2>create a new anecdote</h2>
         <form onSubmit={this.handleSubmit}>
+        <FormGroup>
           <div>
-            content
-            <input name='content' value={this.state.content} onChange={this.handleChange} />
+            <ControlLabel>content</ControlLabel>
+            <FormControl name='content' value={this.state.content} onChange={this.handleChange} />
           </div>
           <div>
-            author
-            <input name='author' value={this.state.author} onChange={this.handleChange} />
+            <ControlLabel>author</ControlLabel>
+            <FormControl name='author' value={this.state.author} onChange={this.handleChange} />
           </div>
           <div>
-            url for more info
-            <input name='info' value={this.state.info} onChange={this.handleChange} />
+            <ControlLabel>url for more info</ControlLabel>
+            <FormControl name='info' value={this.state.info} onChange={this.handleChange} />
           </div>
-          <button>create</button>
+          <Button bsStyle="success" type="submit">create</Button>
+          </FormGroup>
         </form>
       </div>
     )
