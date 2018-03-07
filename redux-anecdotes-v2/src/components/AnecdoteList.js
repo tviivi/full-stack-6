@@ -45,7 +45,7 @@ const mapStateToProps = (state, dispatch) => {
     notifications: state.notifications,
     setFilter: (nimi) => {
       dispatch({ type: 'SET_FILTER', filter: nimi })
-  }
+    }
   }
 }
 
