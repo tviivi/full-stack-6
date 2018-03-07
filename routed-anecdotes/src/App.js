@@ -26,8 +26,8 @@ const AnecdoteList = ({ anecdotes }) => (
         {anecdotes.map(anecdote => <tr key={anecdote.id}>
           <td><Link to={`/anecdotes/${anecdote.id}`}>
             {anecdote.content}</Link>
-            </td>
-            </tr>
+          </td>
+        </tr>
         )}
       </tbody>
     </Table>
@@ -35,17 +35,22 @@ const AnecdoteList = ({ anecdotes }) => (
 )
 
 const About = () => (
-  <div className="container">
-    <img src="https://fi.wikipedia.org/wiki/Linus_Torvalds#/media/File:Linus_Torvalds.jpeg" class="img-responsive" alt="Responsive image"></img>
-    <h2>About anecdote app</h2>
-    <p>According to Wikipedia:</p>
+  <div className="media">
+    <div className="media-body">
+      <h2 className="media-heading">About anecdote app</h2>
+      <p>According to Wikipedia:</p>
 
-    <em>An anecdote is a brief, revealing account of an individual person or an incident.
+      <em>An anecdote is a brief, revealing account of an individual person or an incident.
       Occasionally humorous, anecdotes differ from jokes because their primary purpose is not simply to provoke laughter but to reveal a truth more general than the brief tale itself,
       such as to characterize a person by delineating a specific quirk or trait, to communicate an abstract idea about a person, place, or thing through the concrete details of a short narrative.
       An anecdote is "a story with a point."</em>
 
-    <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
+      <p>Software engineering is full of excellent anecdotes, at this app you can find the best and add more.</p>
+    </div>
+    <div className="media-right">
+      <img className="media-object" src="https://upload.wikimedia.org/wikipedia/commons/6/69/Linus_Torvalds.jpeg"
+        alt="Responsive"></img>
+    </div>
   </div>
 )
 
@@ -97,20 +102,20 @@ class CreateNew extends React.Component {
       <div>
         <h2>create a new anecdote</h2>
         <form onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <div>
-            <ControlLabel>content</ControlLabel>
-            <FormControl name='content' value={this.state.content} onChange={this.handleChange} />
-          </div>
-          <div>
-            <ControlLabel>author</ControlLabel>
-            <FormControl name='author' value={this.state.author} onChange={this.handleChange} />
-          </div>
-          <div>
-            <ControlLabel>url for more info</ControlLabel>
-            <FormControl name='info' value={this.state.info} onChange={this.handleChange} />
-          </div>
-          <Button bsStyle="success" type="submit">create</Button>
+          <FormGroup>
+            <div>
+              <ControlLabel>content</ControlLabel>
+              <FormControl name='content' value={this.state.content} onChange={this.handleChange} />
+            </div>
+            <div>
+              <ControlLabel>author</ControlLabel>
+              <FormControl name='author' value={this.state.author} onChange={this.handleChange} />
+            </div>
+            <div>
+              <ControlLabel>url for more info</ControlLabel>
+              <FormControl name='info' value={this.state.info} onChange={this.handleChange} />
+            </div>
+            <Button bsStyle="success" type="submit">create</Button>
           </FormGroup>
         </form>
       </div>
