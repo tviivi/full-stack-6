@@ -1,16 +1,12 @@
 import React from 'react'
 import { anecdoteCreation } from './../reducers/anecdoteReducer'
+import { connect } from 'react-redux'
 
 class AnecdoteForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
-    const temp = this.props.store
     const content = e.target.anecdote.value
-    temp.dispatch(
-      anecdoteCreation(content)
-    )
-    temp.dispatch({ type: 'CREATENEW', cont: 'you created "' + content + '"'})
-    setTimeout(function () { temp.dispatch({ type: 'CREATENEW', cont: '' }) }, 5000)
+    this.props.createNew(content)
     e.target.anecdote.value = ''
   }
   render() {
@@ -26,4 +22,16 @@ class AnecdoteForm extends React.Component {
   }
 }
 
-export default AnecdoteForm
+const mapDispatchToProps = (dispatch) => {
+  return {
+      createNew: (content) => {
+        dispatch(anecdoteCreation(content))
+        dispatch({ type: 'CREATENEW', cont: 'you created "' + content + '"'})
+        setTimeout(function () { dispatch({ type: 'CREATENEW', cont: '' }) }, 5000)
+      }
+  }
+}
+
+const ConnectedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm)
+
+export default ConnectedAnecdoteForm

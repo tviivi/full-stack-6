@@ -12,8 +12,8 @@ class App extends React.Component {
         <h1>Programming anecdotes</h1>
         <Filter />
         <Notification />
-        <AnecdoteList store={this.props.store} />
-        <AnecdoteForm store={this.props.store} />
+        <AnecdoteList />
+        <AnecdoteForm />
       </div>
     )
   }

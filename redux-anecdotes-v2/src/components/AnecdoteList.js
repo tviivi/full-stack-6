@@ -4,20 +4,15 @@ import { connect } from 'react-redux'
 class AnecdoteList extends React.Component {
 
   nimi2 = (anecdote) => {
-    return anecdote.content.toLowerCase().includes(this.props.store.getState().filter.toLowerCase())
+    return anecdote.content.toLowerCase().includes(this.props.filter.toLowerCase())
   }
 
   handleClickButton = (anecdote) => () => {
-    const temp = this.props.store
-    return (
-      temp.dispatch({ type: 'VOTE', id: anecdote.id }),
-      temp.dispatch({ type: 'CHANGE', cont: 'you voted for "' + anecdote.content + '"' }),
-      setTimeout(function () { temp.dispatch({ type: 'CHANGE', cont: '' }) }, 5000)
-    )
+    this.props.vote(anecdote)
   }
 
   render() {
-    const anecdotes = this.props.store.getState().anecdotes
+    const anecdotes = this.props.anecdotes
     return (
       <div>
         <h2>Anecdotes</h2>
@@ -43,12 +38,21 @@ const mapStateToProps = (state, dispatch) => {
   return {
     anecdotes: state.anecdotes,
     notifications: state.notifications,
-    setFilter: (nimi) => {
-      dispatch({ type: 'SET_FILTER', filter: nimi })
+    filter: state.filter
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    vote: (anecdote) => {
+      dispatch({ type: 'VOTE', id: anecdote.id }),
+        dispatch({ type: 'CHANGE', cont: 'you voted for "' + anecdote.content + '"' }),
+        setTimeout(function () { dispatch({ type: 'CHANGE', cont: '' }) }, 5000)
     }
   }
 }
 
-const ConnectedAnecdoteList = connect(mapStateToProps)(AnecdoteList)
+
+const ConnectedAnecdoteList = connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)
 
 export default ConnectedAnecdoteList
