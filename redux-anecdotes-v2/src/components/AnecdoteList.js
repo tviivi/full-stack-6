@@ -2,21 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 class AnecdoteList extends React.Component {
-
-  nimi2 = (anecdote) => {
-    return anecdote.content.toLowerCase().includes(this.props.filter.toLowerCase())
-  }
-
+  anecdotes = this.props.anecdotes
+  
   handleClickButton = (anecdote) => () => {
     this.props.vote(anecdote)
   }
 
   render() {
-    const anecdotes = this.props.anecdotes
     return (
       <div>
         <h2>Anecdotes</h2>
-        {anecdotes.filter(this.nimi2).sort((a, b) => b.votes - a.votes).map(anecdote =>
+        {this.props.anecdotesToShow.map(anecdote =>
           <div key={anecdote.id}>
             <div>
               {anecdote.content}
@@ -34,24 +30,30 @@ class AnecdoteList extends React.Component {
   }
 }
 
+const nimi2 = (filter) => (anecdote) => {
+  return anecdote.content.toLowerCase().includes(filter.toLowerCase())
+}
+const anecdotesToShow = (anecdotes, filter) => {
+  return anecdotes.filter(nimi2(filter)).sort((a, b) => b.votes - a.votes)
+}
+
 const mapStateToProps = (state, dispatch) => {
+  console.log('state', state.anecdotes)
   return {
-    anecdotes: state.anecdotes,
-    notifications: state.notifications,
-    filter: state.filter
+    anecdotesToShow: anecdotesToShow(state.anecdotes, state.filter),
+    notifications: state.notifications
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     vote: (anecdote) => {
-      dispatch({ type: 'VOTE', id: anecdote.id }),
-        dispatch({ type: 'CHANGE', cont: 'you voted for "' + anecdote.content + '"' }),
-        setTimeout(function () { dispatch({ type: 'CHANGE', cont: '' }) }, 5000)
+      dispatch({ type: 'VOTE', id: anecdote.id })
+      dispatch({ type: 'CHANGE', cont: 'you voted for "' + anecdote.content + '"' })
+      setTimeout(function () { dispatch({ type: 'CHANGE', cont: '' }) }, 5000)
     }
   }
 }
-
 
 const ConnectedAnecdoteList = connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)
 

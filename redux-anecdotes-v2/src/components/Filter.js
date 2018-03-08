@@ -1,5 +1,4 @@
 import React from 'react'
-import { filterChange } from './../reducers/filterReducer'
 import { connect } from 'react-redux'
 
 class Filter extends React.Component {
